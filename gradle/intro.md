@@ -3,7 +3,8 @@
 ## Task
 - A task is an object
 - A task has an API
-- A task has a list of activities 
+- A task has a list of activities
+- Tasks form a Directed Ayclic Graph
 - A gradle build is a program
 
 Create a file `build.gradle` in an empty directory
