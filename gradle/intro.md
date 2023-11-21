@@ -133,4 +133,16 @@ Notice the short-hand notation for long task names
 $ gradle -q hW
 Hello, world!
 ```
+## Java Plugin
+
+```
+plugins {
+	id 'java'
+}
+
+task caesar(type: JavaExec) {
+	mainClass = 'org.monadic.poetry.Poetry'
+	classpath = sourceSets.main.runtimeClasspath
+}
+```
 
