@@ -146,3 +146,19 @@ task caesar(type: JavaExec) {
 }
 ```
 
+## Application Plugin
+
+```
+plugins {
+	id 'java'
+	id 'application'
+}
+
+application {
+	mainClass.set("org.monadic.poetry.Poetry")
+}
+```
+
+Adds a run task.
+
+
