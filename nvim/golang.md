@@ -1,6 +1,6 @@
-NvChad Goland
+# NvChad Goland
 
-Clean existing installation
+## Clean existing installation
 
 Linux / MacOS (unix) 
 
@@ -26,7 +26,7 @@ $ git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
 Select **No** for `Do you want to install example custom config?`
 
 ## Install `gopls`  
-Create a file ~/.config/nvim/lua/custom/plugins.lua wit the following content
+Create a file ~/.config/nvim/lua/custom/plugins.lua with the following content
 
 ```lua
 local plugins = {
@@ -54,4 +54,50 @@ M.plugins = "custom.plugins"
 
 return M
 ```
+
+Save and close the files, restart nvim and run the **MasonInstallAll** command from the colon prompt.
+
+Add the following section in the `~/.config/nvim/lua/custom/plugins.lua` file
+
+```
+local plugins = {
+  ...
+  {
+    "neovim/nvim-lspconfig",
+    config = function ()
+      require "plugins.configs.lspconfig"
+      require "custom.configs.lspconfig"
+    end,
+  },
+}
+return plugins
+```
+Create a file `~/.config/nvim/lua/custom/configs/lspconfig.lua`
+
+```
+local on_attach = require("plugins.configs.lspconfig").on_attach
+local capabilities = require("plugins.configs.lspconfig").capabilities
+
+local lspconfig = require("lspconfig")
+local util = require "lspconfig/util"
+
+lspconfig.gopls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {"gopls"},
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+      analyses = {
+        unusedparams = true,
+      },
+    },
+  },
+}
+
+```
+
 
